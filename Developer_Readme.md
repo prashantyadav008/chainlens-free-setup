@@ -106,3 +106,5 @@ docker-compose down
 ```bash
 docker-compose down -v
 ```
+
+![Chainlens Dashboard](./_images/locahost-chainlens-dashboard.png "Chainlens dashboard")
