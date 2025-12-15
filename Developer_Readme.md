@@ -75,7 +75,62 @@ Expected containers:
 
 - chainlens_app
 
-### 5. Access API / Frontend
+### 5. Verify Ingestion Service (MOST IMPORTANT STEP)
+
+ChainLens will only work correctly if the ingestion service is properly connecting to the blockchain node.
+
+#### 5.1 Check Ingestion Logs
+
+Run the following command:
+
+```bash
+docker-compose logs -f ingestion
+```
+
+#### 5.2 Expected Logs (Example)
+
+You should see outputs like:
+
+- Connecting to node
+- Fetching block …
+- Calculating metrics
+- No continuous errors
+
+#### 5.3 Common Errors
+
+If you see errors such as:
+
+- connection refused
+
+- 429 rate limit
+
+- invalid response
+
+It indicates that the ingestion service is not able to connect to the blockchain node properly.
+
+🔹 Tip: Make sure $NODE_ENDPOINT is set correctly and the node is accessible.
+
+Check Logs:
+
+```bash
+docker-compose logs ingestion | grep error
+```
+
+#### 5.4 Check API Logs:
+
+```bash
+docker-compose logs -f api
+```
+
+Expected:
+
+- Blocks syncing
+
+- Transactions indexing
+
+- Metrics calculation
+
+### 6. Access API / Frontend
 
 #### Health Check:
 
@@ -93,7 +148,7 @@ curl "http://localhost:26000/api/blocks?page=0&size=5"
 
 Open browser → http://localhost:26000
 
-### 6. Stop & Clean Containers
+### 7. Stop & Clean Containers
 
 #### Stop all running containers:
 
@@ -106,41 +161,6 @@ docker-compose down
 ```bash
 docker-compose down -v
 ```
-
-### 7. Verify Ingestion Service (MOST IMPORTANT STEP)
-
-ChainLens will only work correctly if the ingestion service is properly connecting to the blockchain node.
-
-#### 7.1 Check Ingestion Logs
-
-Run the following command:
-
-```bash
-docker-compose logs -f ingestion
-```
-
-#### 7.2 Expected Logs (Example)
-
-You should see outputs like:
-
-- Connecting to node
-- Fetching block …
-- Calculating metrics
-- No continuous errors
-
-#### 7.3 Common Errors
-
-If you see errors such as:
-
-- connection refused
-
-- 429 rate limit
-
-- invalid response
-
-It indicates that the ingestion service is not able to connect to the blockchain node properly.
-
-🔹 Tip: Make sure $NODE_ENDPOINT is set correctly and the node is accessible.
 
 ---
 
