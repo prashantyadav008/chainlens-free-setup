@@ -107,4 +107,41 @@ docker-compose down
 docker-compose down -v
 ```
 
+### 7. Verify Ingestion Service (MOST IMPORTANT STEP)
+
+ChainLens will only work correctly if the ingestion service is properly connecting to the blockchain node.
+
+#### 7.1 Check Ingestion Logs
+
+Run the following command:
+
+```bash
+docker-compose logs -f ingestion
+```
+
+#### 7.2 Expected Logs (Example)
+
+You should see outputs like:
+
+- Connecting to node
+- Fetching block …
+- Calculating metrics
+- No continuous errors
+
+#### 7.3 Common Errors
+
+If you see errors such as:
+
+- connection refused
+
+- 429 rate limit
+
+- invalid response
+
+It indicates that the ingestion service is not able to connect to the blockchain node properly.
+
+🔹 Tip: Make sure $NODE_ENDPOINT is set correctly and the node is accessible.
+
+---
+
 ![Chainlens Dashboard](./_images/locahost-chainlens-dashboard.png "Chainlens dashboard")
